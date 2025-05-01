@@ -20,9 +20,21 @@
               <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
           </li>
+          
           <li class="nav-item">
             <a class="nav-link active" href="{% url "profile_list" %}">Profiles</a>
           </li>
+
+          {% if user.is_authenticated %}
+          
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url "profile" request.user.id %}">My Profile</a>
+          </li>
+
+          {% endif %}
+          
+
+
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
