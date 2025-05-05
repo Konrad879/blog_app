@@ -1,14 +1,26 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Profile, BlogPost
+from .forms import BlogPostForm
 
 # Create your views here.
 
 def home(request):
     if request.user.is_authenticated:
-        blog_posts = BlogPost.objects.all().order_by("-created_at")
+        form = BlogPostForm(request.POST or None)
+        if request.method == "POST":
+            if form.is_valid():
+                blog_post = form.save(commit=False)
+                blog_post.user = request.user
+                blog_post.save()
+                messages.success(request, ("Your blog post has been posted..."))
+                return redirect('home')
 
-    return render(request, 'home.html', {"blog_posts":blog_posts})
+        blog_posts = BlogPost.objects.all().order_by("-created_at")
+        return render(request, 'home.html', {"blog_posts":blog_posts, "form":form})
+    else:
+        blog_posts = BlogPost.objects.all().order_by("-created_at")
+        return render(request, 'home.html', {"blog_posts":blog_posts})
 
 def profile_list(request):
 

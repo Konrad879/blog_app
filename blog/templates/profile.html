@@ -12,7 +12,11 @@
                     {% if blog_posts %}
                       {% for blog_post in blog_posts %}
                         <div class="alert alert-dark" role="alert">
-                          {{ blog_post }}
+                           {{ blog_post.body }}
+                           <br/>
+                           <small class="text-muted">
+                             ({{ blog_post.created_at }}) By @{{ blog_post.user.username|lower }}
+                          </small>
                         </div>
                         <br/><br/>
                       {% endfor %}
