@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group, User
-from .models import Profile
+from .models import Profile, BlogPost
 
 # Register your models here.
 
@@ -23,6 +23,10 @@ class UserAdmin(admin.ModelAdmin):
 
 # Unregister initial User
 admin.site.unregister(User)
+
+# Register Blog Posts
+admin.site.register(BlogPost)
+
 
 # Reregister User and Profile
 admin.site.register(User, UserAdmin)

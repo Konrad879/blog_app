@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Hello World!</h1>
-{% endblock content %}
+    <h1>Blog Posts!</h1>
+    <br/><br/>
 
+    {% for blog_post in blog_posts  %}
+        <div class="alert alert-dark" role="alert">
+            {{ blog_post }}
+        </div>
+        <br/><br/>
+    {% endfor %}
+
+{% endblock content %}
