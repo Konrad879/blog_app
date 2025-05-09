@@ -5,6 +5,7 @@ from .forms import BlogPostForm, SignUpForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -102,3 +103,20 @@ def register_user(request):
             return redirect('home')
 
     return render(request, "register.html", {'form':form})
+
+
+def update_user(request):
+    if request.user.is_authenticated:
+        current_user = User.objects.get(id=request.user.id)
+        form = SignUpForm(request.POST or None, instance=current_user)
+        if form.is_valid():
+            form.save()
+            login(request, current_user)
+            messages.success(request, ("Your profile has been updated"))
+            return redirect('home')
+    
+        return render(request, "update_user.html", {'form':form})
+    else:
+        messages.success(request, ("You must be logged in to view this page"))
+        return redirect('home')
+        
