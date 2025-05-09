@@ -23,6 +23,12 @@
                     {% endif %}
                 </div>
                 <div class="col-4">
+                  
+                  {% if profile.profile_image %}
+                    <img src="{{ profile.profile_image.url }}" class="profile-picture">
+                    <br/><br/>
+                  {% endif %}
+
                     <div class="card">
                         <div class="card-header">Follows</div>
                         <div class="card-body">
