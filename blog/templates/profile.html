@@ -28,6 +28,18 @@
                            <br/>
                            <small class="text-muted">
                              ({{ blog_post.created_at }}) By @{{ blog_post.user.username|lower }}
+                             - {{ blog_post.number_of_likes }} Likes -
+                            {% if user in blog_post.likes.all %}
+                              <a href="{% url "blog_post_like" blog_post.id %}">
+                                <i class="fa-solid fa-heart" style="color:grey"></i>
+                                {% comment %} Dislike a post {% endcomment %}
+                              </a>              
+                            {% else %}
+                                <a href="{% url "blog_post_like" blog_post.id %}">
+                                  <i class="fa fa-heart-o" style="color:grey"></i>
+                                </a>
+                                {% comment %} Like a post {% endcomment %}
+                            {% endif %}
                           </small>
                         </div>
                         <br/><br/>
