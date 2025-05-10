@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 
     <div class="container text-center">
@@ -11,13 +11,26 @@
 
         {% for blog_post in blog_posts  %}
             <div class="alert alert-dark" role="alert">
-                {{ blog_post.body }}
-                <br/>
-                <small class="text-muted">
-                    ({{ blog_post.created_at }}) By @{{ blog_post.user.username|lower }}
-                </small>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-1">
+                            {% if blog_post.user.profile.profile_image %}
+                              <img src="{{ blog_post.user.profile.profile_image.url }}" width=50 height=50 class="rounded-circle" alt="{{ profile.user.username }}">
+                            {% else %}
+                              <img src="{% static "images/profile_pic.png" %}" width=50 height=50 class="rounded-circle" alt="{{ profile.user.username }}">
+                            {% endif %}
+                        </div>
+            <div class="col-10">
+              {{ blog_post.body }}
+              <br/>
+              <small class="text-muted">
+                  ({{ blog_post.created_at }}) By @{{ blog_post.user.username|lower }}
+              </small>
+              </div>
+              <br/><br/>
             </div>
-            <br/><br/>
+          </div>
+        </div>
         {% endfor %}
     </div>
 

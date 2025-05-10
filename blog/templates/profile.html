@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
     
     {% if profile %}
@@ -12,6 +12,18 @@
                     {% if blog_posts %}
                       {% for blog_post in blog_posts %}
                         <div class="alert alert-dark" role="alert">
+                          <div class="container">
+                            <div class="row">
+                              <div class="col-1">
+
+                                {% if profile.profile_image %}
+                                  <img src="{{ profile.profile_image.url }}" width=50 height=50 class="rounded-circle" alt="{{ profile.user.username }}">
+                                {% else %}
+                                  <img src="{% static "images/profile_pic.png" %}" width=50 height=50 class="rounded-circle" alt="{{ profile.user.username }}">
+                                {% endif %}
+
+                              </div>
+                                <div class="col-10">
                            {{ blog_post.body }}
                            <br/>
                            <small class="text-muted">
@@ -19,6 +31,9 @@
                           </small>
                         </div>
                         <br/><br/>
+                      </div>
+                      </div>
+                    </div>
                       {% endfor %}
                     {% endif %}
                 </div>
