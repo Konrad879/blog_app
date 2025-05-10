@@ -27,7 +27,7 @@ class BlogPostForm(forms.ModelForm):
     
     class Meta:
         model = BlogPost
-        exclude = ("user",)
+        exclude = ("user", "likes")
 
 
 class SignUpForm(UserCreationForm):

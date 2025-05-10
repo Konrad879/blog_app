@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Profile, BlogPost
 from .forms import BlogPostForm, SignUpForm, ProfilePicForm
@@ -126,3 +126,15 @@ def update_user(request):
 		return redirect('home')
         
 
+def blog_post_like(request, pk):
+    if request.user.is_authenticated: 
+        blog_post = get_object_or_404(BlogPost, id=pk)
+        if blog_post.likes.filter(id=request.user.id):
+            blog_post.likes.remove(request.user)
+        else:
+             blog_post.likes.add(request.user)
+        # Redirect to the last visited site
+        return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        messages.success(request, ("You Must Be Logged In To View That Page..."))
+        return redirect('home')
