@@ -6,10 +6,8 @@
         <div class="row">
             <div class="col-8">
 
-        <h1>Blog Posts!</h1>
         <br/><br/>
 
-        {% for blog_post in blog_posts  %}
             <div class="alert alert-dark" role="alert">
                 <div class="container">
                     <div class="row">
@@ -25,41 +23,30 @@
               <br/>
               <small class="text-muted">
                   ({{ blog_post.created_at }}) By @{{ blog_post.user.username|lower }}
-                  - {{ blog_post.number_of_likes }} -
+                  - {{ blog_post.number_of_likes }} Likes - 
                   {% if user in blog_post.likes.all %}
-                    <a href="{% url "blog_post_like" blog_post.id %}">
-                        <i class="fa-solid fa-heart" style="color:grey"></i>
-                    </a>
-                    {% comment %} Dislike a post {% endcomment %}
+                      <a href="{% url "blog_post_like" blog_post.id %}">
+                        <i class="fa-solid fa-heart" style="color:grey"></i> 
+                      </a>
+                      {% comment %} Dislike a post {% endcomment %}
                   {% else %}
-                    <a href="{% url "blog_post_like" blog_post.id %}">
-                        <i class="fa fa-heart-o" style="color:grey"></i>
-                    </a>
-                    {% comment %} Like a post {% endcomment %}
+                      <a href="{% url "blog_post_like" blog_post.id %}">
+                        <i class="fa fa-heart-o" style="color:grey"></i> 
+                      </a>
+                      {% comment %} Like a post {% endcomment %}
                   {% endif %}
-                    <a href="{% url "blog_post_share" blog_post.id %}">
-                        <i class="fa fa-share-alt" style="color:grey"></i>
-                    </a>
+                  <a href="{% url "blog_post_share" blog_post.id %}"></a>
+
               </small>
               </div>
               <br/><br/>
             </div>
           </div>
         </div>
-        {% endfor %}
     </div>
 
     <div class="col-4">
         <br/><br/><br/><br/>
-        {% if form %}
-            <form method=POST>
-                {% csrf_token %}
-                <div class="mb-3">
-                    {{ form.as_p }}
-                </div>
-                <button type="submit" class="btn btn-secondary">Post!</button>
-            </form>
-        {% endif %}
     </div>
 
 {% endblock content %}

@@ -28,18 +28,18 @@
                            <br/>
                            <small class="text-muted">
                              ({{ blog_post.created_at }}) By @{{ blog_post.user.username|lower }}
-                             - {{ blog_post.number_of_likes }} Likes -
+                             - {{ blog_post.number_of_likes }} -
                             {% if user in blog_post.likes.all %}
                               <a href="{% url "blog_post_like" blog_post.id %}">
-                                <i class="fa-solid fa-heart" style="color:grey"></i>
-                                {% comment %} Dislike a post {% endcomment %}
-                              </a>              
+                                <i class="fa-solid fa-heart" style="color:grey"></i></a>
+                                {% comment %} Dislike a post {% endcomment %}              
                             {% else %}
                                 <a href="{% url "blog_post_like" blog_post.id %}">
-                                  <i class="fa fa-heart-o" style="color:grey"></i>
-                                </a>
+                                  <i class="fa fa-heart-o" style="color:grey"></i></a>
                                 {% comment %} Like a post {% endcomment %}
                             {% endif %}
+                              <a href="{% url "blog_post_share" blog_post.id %}">
+                                <i class="fa fa-share-alt" style="color:grey"></i></a>
                           </small>
                         </div>
                         <br/><br/>
@@ -55,6 +55,39 @@
                     <img src="{{ profile.profile_image.url }}" class="profile-picture">
                     <br/><br/>
                   {% endif %}
+                  
+                  {% if profile.homepage_link %}
+                    <a href="{{ profile.homepage_link }}" target="new">
+                    <i class="fa-solid fa-link" style="color:gray"></i></a>
+                  {% endif %}
+                  &nbsp;&nbsp;
+
+                  {% if profile.facebook_link %}
+                    <a href="{{ profile.facebook_link }}" target="new">
+                    <i class="fa-brands fa-facebook-f" style="color:gray"></i></a>
+                  {% endif %}
+                  &nbsp;&nbsp;
+
+                  {% if profile.instagram_link %}
+                    <a href="{{ profile.instagram_link }}" target="new">
+                    <i class="fa-brands fa-instagram" style="color:gray"></i></a>
+                  {% endif %}
+                  &nbsp;&nbsp;
+
+                  {% if profile.linkedin_link %}
+                    <a href="{{ profile.linkedin_link }}" target="new">
+                    <i class="fa-brands fa-linkedin-in" style="color:gray"></i></a>
+                  {% endif %}
+
+                  <br/><br/>
+
+                  {% if profile.profile_bio %}
+                    <p align="justify">
+                  {{profile.profile_bio }}
+                  </p>
+                  {% endif %}
+                  
+                  <br/><br/>
 
                     <div class="card">
                         <div class="card-header">Follows</div>
