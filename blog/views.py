@@ -138,3 +138,12 @@ def blog_post_like(request, pk):
     else:
         messages.success(request, ("You Must Be Logged In To View That Page..."))
         return redirect('home')
+
+def blog_post_share(request, pk):
+    blog_post = get_object_or_404(BlogPost, id=pk)
+    if blog_post:
+        return render(request, "blog_post_share.html", {'blog_post':blog_post})
+
+    else:
+        messages.success(request, ("That Blog Post does not exist"))
+        return redirect('home')

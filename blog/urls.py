@@ -10,5 +10,6 @@ urlpatterns = [
     path('register/', views.register_user, name="register"),
     path('update_user/', views.update_user, name="update_user"),
     path('blog_post_like/<int:pk>', views.blog_post_like, name="blog_post_like"),
+    path('blog_post_share/<int:pk>', views.blog_post_share, name="blog_post_share"),
     
 ]
