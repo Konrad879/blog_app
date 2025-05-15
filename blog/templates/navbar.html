@@ -47,23 +47,26 @@
             <a class="nav-link active" href="{% url 'register' %}">Register</a>
           </li>
         {% endif %}
+        
       </ul>
 
-    
-      {% if user.is_authenticated %}
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'profile' request.user.id %}">
-              {% if user.profile.profile_image %}
-                <img src="{{ user.profile.profile_image.url }}" class="rounded-circle" width="30">
-              {% else %}
-                <img src="{% static 'images/profile_pic.png' %}" class="img-fluid rounded-circle" alt="Profile Image" width="30">
+          <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'search' %}"><i class="fas fa-search"></i></a>
+              </li>
+              {% if user.is_authenticated %}    
+              <li class="nav-item">  
+                <a class="nav-link" href="{% url 'profile' request.user.id %}">
+                  {% if user.profile.profile_image %}
+                    <img src="{{ user.profile.profile_image.url }}" class="rounded-circle" width="30">
+                  {% else %}
+                    <img src="{% static 'images/profile_pic.png' %}" class="img-fluid rounded-circle" alt="Profile Image" width="30">
+                  {% endif %}
+                </a>
+              </li>
               {% endif %}
-            </a>
-          </li>
-        </ul>
-      {% endif %}
-
+              
+          </ul>
     </div>
   </div>
 </nav>
