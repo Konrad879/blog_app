@@ -18,4 +18,6 @@ urlpatterns = [
     path('delete_post/<int:pk>', views.delete_post, name="delete_post"),
     path('edit_post/<int:pk>', views.edit_post, name="edit_post"),
     path('search/', views.search, name="search"),
+    path('search_user/', views.search_user, name="search_user"),
+
 ]
