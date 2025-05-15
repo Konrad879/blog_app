@@ -52,8 +52,11 @@
 
           <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link active" href="{% url 'search' %}"><i class="fas fa-search"></i></a>
-              </li>
+                <a class="nav-link active" href="{% url 'search' %}"><i class="fas fa-search"></i>&nbsp;<i class="fa-solid fa-book"></i></a>
+              </li>&nbsp;&nbsp;
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'search_user' %}"><i class="fas fa-search"></i>&nbsp;<i class="fa-solid fa-user"></i></i></a>
+              </li>&nbsp;&nbsp;
               {% if user.is_authenticated %}    
               <li class="nav-item">  
                 <a class="nav-link" href="{% url 'profile' request.user.id %}">
