@@ -24,7 +24,7 @@
               {{ blog_post.body }}
               <br/>
               <small class="text-muted">
-                  ({{ blog_post.created_at }}) By @{{ blog_post.user.username|lower }}
+                  ({{ blog_post.created_at }}) By <a href="{% url 'profile' blog_post.user.id %}" style="text-decoration: none; color: inherit;">@{{ blog_post.user.username|lower }}</a>
                   - {{ blog_post.number_of_likes }} -
                   {% if user in blog_post.likes.all %}
                     <a href="{% url "blog_post_like" blog_post.id %}">
