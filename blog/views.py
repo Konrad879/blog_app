@@ -208,3 +208,58 @@ def blog_post_share(request, pk):
     else:
         messages.success(request, ("That Blog Post does not exist"))
         return redirect('home')
+    
+
+def delete_post(request, pk):
+    if request.user.is_authenticated:
+        blog_post = get_object_or_404(BlogPost, id=pk)
+        # Make sure that only owner of the post can delete the post
+        if request.user.username == blog_post.user.username:
+            # Delete the post
+            blog_post.delete()
+            messages.success(request, ("The post has been deleted"))
+            return redirect(request.META.get('HTTP_REFERER'))
+        else:
+            messages.success(request, ("You are not an owner of this post"))
+            return redirect('home')
+    else:
+        messages.success(request, ("Please log in to continue"))
+        return redirect('home')
+    
+
+def edit_post(request,pk):
+	if request.user.is_authenticated:
+		blog_post = get_object_or_404(BlogPost, id=pk)
+		if request.user.username == blog_post.user.username:
+			form = BlogPostForm(request.POST or None, instance=blog_post)
+			if request.method == "POST":
+				if form.is_valid():
+					blog_post = form.save(commit=False)
+					blog_post.user = request.user
+					blog_post.save()
+					messages.success(request, ("Your post has been updated"))
+					return redirect('home')
+			else:
+				return render(request, "edit_post.html", {'form':form, 'blog_post':blog_post})
+	
+		else:
+			messages.success(request, ("You don't own this post"))
+			return redirect('home')
+
+	else:
+		messages.success(request, ("Please Log In To Continue..."))
+		return redirect('home')
+    
+
+def search(request):
+    if request.method == "POST":
+        # Grab the form field input
+        search = request.POST['search']
+        # Search the database
+        searched = BlogPost.objects.filter(body__contains=search)
+        return render(request, "search.html", {'search':search, 'searched':searched})
+
+    else:
+        return render(request, "search.html", {})
+
+    

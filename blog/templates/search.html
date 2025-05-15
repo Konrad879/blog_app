@@ -2,15 +2,24 @@
 {% load static %}
 {% block content %}
 
-    <div class="container text-center">
-        <div class="row">
-            <div class="col-8">
+<h1>Search posts</h1>
+<br/><br/>
 
-        <h1>Blog Posts!</h1>
-        <br/><br/>
 
-        {% for blog_post in blog_posts  %}
-            <div class="alert alert-dark" role="alert">
+<form method=POST>
+    {% csrf_token %}
+    <input type="input" class="form-control" placeholder="Search posts here" name="search">
+    <br/><br/>
+    <button type="submit" class="btn btn-secondary">Search a post</button>
+</form>
+<br/><br/>
+
+{% if search %}
+    <h3>You searched for: {{ search }}</h3>
+
+    {% for blog_post in searched %}
+        
+        <div class="alert alert-dark" role="alert">
                 <div class="container">
                     <div class="row">
                         <div class="col-1">
@@ -43,20 +52,9 @@
             </div>
           </div>
         </div>
-        {% endfor %}
-    </div>
 
-    <div class="col-4">
-        <br/><br/><br/><br/>
-        {% if form %}
-            <form method=POST>
-                {% csrf_token %}
-                <div class="mb-3">
-                    {{ form.as_p }}
-                </div>
-                <button type="submit" class="btn btn-secondary">Post!</button>
-            </form>
-        {% endif %}
-    </div>
+    {% endfor %}
+
+{% endif %}
 
 {% endblock content %}

@@ -28,18 +28,26 @@
                            <br/>
                            <small class="text-muted">
                              ({{ blog_post.created_at }}) By @{{ blog_post.user.username|lower }}
-                             - {{ blog_post.number_of_likes }} -
+                             - {{ blog_post.number_of_likes }} - &nbsp; &nbsp;
                             {% if user in blog_post.likes.all %}
                               <a href="{% url "blog_post_like" blog_post.id %}">
-                                <i class="fa-solid fa-heart" style="color:grey"></i></a>
+                                <i class="fa-solid fa-heart" style="color:grey"></i></a>&nbsp; &nbsp;
                                 {% comment %} Dislike a post {% endcomment %}              
                             {% else %}
                                 <a href="{% url "blog_post_like" blog_post.id %}">
-                                  <i class="fa fa-heart-o" style="color:grey"></i></a>
+                                  <i class="fa fa-heart-o" style="color:grey"></i></a>&nbsp; &nbsp;
                                 {% comment %} Like a post {% endcomment %}
                             {% endif %}
                               <a href="{% url "blog_post_share" blog_post.id %}">
-                                <i class="fa fa-share-alt" style="color:grey"></i></a>
+                                <i class="fa fa-share-alt" style="color:grey"></i></a>&nbsp; &nbsp;
+                            {% if request.user.username == profile.user.username %}
+                              <a href="{% url "delete_post" blog_post.id %}">
+                                <i class="fas fa-trash-alt" style="color:grey"></i></a>&nbsp; &nbsp;
+
+                              <a href="{% url "edit_post" blog_post.id %}">
+                                <i class="fa fa-edit" style="color:grey"></i></a>
+                            {% endif %}
+                            
                           </small>
                         </div>
                         <br/><br/>
