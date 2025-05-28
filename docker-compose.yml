@@ -1,0 +1,32 @@
+
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: blog_app
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: " "
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    command: ["./wait-for-it.sh", "db:5432", "--", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SETTINGS_MODULE=social.settings
+      - DB_NAME=blog_app
+      - DB_USER=postgres
+      - DB_PASSWORD=" "
+      - DB_HOST=db
+      - DB_PORT=5432
+
+volumes:
+  postgres_data:
