@@ -1,5 +1,9 @@
 {% load static %}
 
+<head>
+  <link href="{% static 'css/base.css' %}" rel="stylesheet">
+</head>
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
 
@@ -17,25 +21,13 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
         </li>
-        {% comment %} <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li> {% endcomment %}
+        
         <li class="nav-item">
           <a class="nav-link active" href="{% url 'profile_list' %}">Profiles</a>
         </li>
 
         {% if user.is_authenticated %}
-          {% comment %} <li class="nav-item">
-            <a class="nav-link active" href="{% url 'profile' request.user.id %}">My Profile</a>
-          </li> {% endcomment %}
+          
           <li class="nav-item">
             <a class="nav-link active" href="{% url 'logout' %}">Logout</a>
           </li>
@@ -57,14 +49,17 @@
               <li class="nav-item">
                 <a class="nav-link active" href="{% url 'search_user' %}"><i class="fas fa-search"></i>&nbsp;<i class="fa-solid fa-user"></i></i></a>
               </li>&nbsp;&nbsp;
+              
               {% if user.is_authenticated %}    
               <li class="nav-item">  
                 <a class="nav-link" href="{% url 'profile' request.user.id %}">
+                  
                   {% if user.profile.profile_image %}
-                    <img src="{{ user.profile.profile_image.url }}" class="rounded-circle" width="30">
+                    <img src="{{ user.profile.profile_image.url }}" class="rounded-circle profile-icon">
                   {% else %}
-                    <img src="{% static 'images/profile_pic.png' %}" class="img-fluid rounded-circle" alt="Profile Image" width="30">
+                    <img src="{% static 'images/profile_pic.png' %}" class="rounded-circle profile-icon">
                   {% endif %}
+
                 </a>
               </li>
               {% endif %}

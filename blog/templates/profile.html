@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+  <head>
+	  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+  </head>
+  {% comment %} <body class="img js-fullheight" style="background-image: url({% static 'images/bg_profile2.jpg' %});"> {% endcomment %}
     
     {% if profile %}
     
@@ -11,7 +17,7 @@
                     <br/><br/>
                     {% if blog_posts %}
                       {% for blog_post in blog_posts %}
-                        <div class="alert alert-dark" role="alert">
+                        <div class="alert alert-dark" role="alert" style="border-radius: 99px;">
                           <div class="container">
                             <div class="row">
                               <div class="col-1">
@@ -24,8 +30,15 @@
 
                               </div>
                                 <div class="col-10">
-                           {{ blog_post.body }}
-                           <br/>
+                             {{ blog_post.body }}
+                              <br/>
+                              
+                              {% if blog_post.image %}
+                                <img src="{{ blog_post.image.url }}" class="img-fluid rounded" style="max-height: 300px;" alt="Post image">
+                                <br/>
+                              {% endif %}
+
+                                <br/>
                            <small class="text-muted">
                              ({{ blog_post.created_at }}) By @{{ blog_post.user.username|lower }}
                              - {{ blog_post.number_of_likes }} - &nbsp; &nbsp;
@@ -61,6 +74,9 @@
                   
                   {% if profile.profile_image %}
                     <img src="{{ profile.profile_image.url }}" class="profile-picture">
+                    <br/><br/>
+                  {% else %}
+                    <img src="{% static "images/profile_pic.png" %}" class="profile-picture">
                     <br/><br/>
                   {% endif %}
                   
@@ -161,5 +177,5 @@
         </div>
 
     {% endif %}
-
+      {% comment %} </body> {% endcomment %}
 {% endblock content %}

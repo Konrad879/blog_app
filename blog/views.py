@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Profile, BlogPost
-from .forms import BlogPostForm, SignUpForm, ProfilePicForm
+from .forms import BlogPostForm, SignUpForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 
 def home(request):
     if request.user.is_authenticated:
-        form = BlogPostForm(request.POST or None)
+        form = BlogPostForm(request.POST, request.FILES or None)
         if request.method == "POST":
             if form.is_valid():
                 blog_post = form.save(commit=False)
@@ -171,13 +171,12 @@ def update_user(request):
 		current_user = User.objects.get(id=request.user.id)
 		profile_user = Profile.objects.get(user__id=request.user.id)
 		# Get Forms
-		user_form = SignUpForm(request.POST or None, request.FILES or None, instance=current_user)
-		profile_form = ProfilePicForm(request.POST or None, request.FILES or None, instance=profile_user)
+		user_form = UserUpdateForm(request.POST or None, request.FILES or None, instance=current_user)
+		profile_form = ProfileUpdateForm(request.POST or None, request.FILES or None, instance=profile_user)
 		if user_form.is_valid() and profile_form.is_valid():
 			user_form.save()
 			profile_form.save()
 
-			login(request, current_user)
 			messages.success(request, ("Your Profile Has Been Updated!"))
 			return redirect('home')
 
@@ -231,7 +230,7 @@ def edit_post(request,pk):
 	if request.user.is_authenticated:
 		blog_post = get_object_or_404(BlogPost, id=pk)
 		if request.user.username == blog_post.user.username:
-			form = BlogPostForm(request.POST or None, instance=blog_post)
+			form = BlogPostForm(request.POST, request.FILES or None, instance=blog_post)
 			if request.method == "POST":
 				if form.is_valid():
 					blog_post = form.save(commit=False)

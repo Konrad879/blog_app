@@ -6,6 +6,7 @@ from django.db.models.signals import post_save
 # Create blog post model
 class BlogPost(models.Model):
     user = models.ForeignKey(User, related_name="blog_posts", on_delete=models.DO_NOTHING)
+    image = models.ImageField(null=True, blank=True, upload_to='images/')
     body = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, related_name="blog_post_like", blank=True)
