@@ -3,8 +3,8 @@
 <div class="col-md-6 offset-md-3">
   <h1>Update Profile</h1>
 
-  <form method="POST">
-    <div class="mb-3" action="" enctype="multipart/form-data">
+  <form method="POST" enctype="multipart/form-data">
+    <div class="mb-3" action="" >
       {% csrf_token %} {{ user_form.as_p }} {{ profile_form.as_p }}
     </div>
     <button type="submit" class="btn btn-secondary">Update Profile</button>

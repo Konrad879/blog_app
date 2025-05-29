@@ -2,6 +2,13 @@
 {% load static %}
 {% block content %}
 
+  <head>
+	  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+  </head>
+  	<body class="img js-fullheight" style="background-image: url({% static 'images/bg_home1.jpg' %});">
+
     <div class="container text-center">
         <div class="row">
             <div class="col-8">
@@ -10,7 +17,7 @@
         <br/><br/>
 
         {% for blog_post in blog_posts  %}
-            <div class="alert alert-dark" role="alert">
+            <div class="alert alert-dark" role="alert" style="border-radius: 99px;">
                 <div class="container">
                     <div class="row">
                         <div class="col-1">
@@ -23,17 +30,22 @@
             <div class="col-10">
               {{ blog_post.body }}
               <br/>
+              
+              {% if blog_post.image %}
+                <img src="{{ blog_post.image.url }}" class="img-fluid rounded" style="max-height: 300px;" alt="Post image">
+                <br/>
+              {% endif %}
+
+                <br/>
               <small class="text-muted">
                   ({{ blog_post.created_at }}) By <a href="{% url 'profile' blog_post.user.id %}" style="text-decoration: none; color: inherit;">@{{ blog_post.user.username|lower }}</a>
                   - {{ blog_post.number_of_likes }} - &nbsp;&nbsp;
                   {% if user in blog_post.likes.all %}
                     <a href="{% url "blog_post_like" blog_post.id %}">
                         <i class="fa-solid fa-heart" style="color:grey"></i></a>&nbsp;&nbsp;
-                    {% comment %} Dislike a post {% endcomment %}
                   {% else %}
                     <a href="{% url "blog_post_like" blog_post.id %}">
                         <i class="fa fa-heart-o" style="color:grey"></i></a>&nbsp;&nbsp;
-                    {% comment %} Like a post {% endcomment %}
                   {% endif %}
                     <a href="{% url "blog_post_share" blog_post.id %}">
                         <i class="fa fa-share-alt" style="color:grey"></i></a>
@@ -49,7 +61,7 @@
     <div class="col-4">
         <br/><br/><br/><br/>
         {% if form %}
-            <form method=POST>
+            <form method=POST enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="mb-3">
                     {{ form.as_p }}
@@ -58,5 +70,6 @@
             </form>
         {% endif %}
     </div>
+  </body>
 
 {% endblock content %}
