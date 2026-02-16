@@ -1,7 +1,7 @@
 import pytest
 from django.urls import reverse
 from django.contrib.auth.models import User
-from blog.models import BlogPost
+from posts.models import BlogPost
 
 @pytest.mark.django_db(transaction=True)
 class TestHomeView:

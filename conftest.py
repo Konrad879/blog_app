@@ -1,6 +1,6 @@
 import pytest
 from django.contrib.auth.models import User
-from .models import BlogPost, Profile
+from .posts.models import BlogPost, Profile
 
 
 @pytest.fixture(autouse=True)
