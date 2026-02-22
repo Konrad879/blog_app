@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'social.wsgi.application'
+WSGI_APPLICATION = 'core.wsgi.application'
 
 
 # Database
