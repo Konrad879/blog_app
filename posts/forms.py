@@ -83,13 +83,13 @@ class ProfileUpdateForm(forms.ModelForm):
     profile_image   = forms.ImageField(required=False)
     profile_bio     = forms.CharField(required=False, widget=forms.Textarea(
                         attrs={'class':'form-control','placeholder':'Bio','rows':3}))
-    homepage_link   = forms.URLField(required=False, widget=forms.URLInput(
+    homepage_link   = forms.URLField(assume_scheme="https", required=False, widget=forms.URLInput(
                         attrs={'class':'form-control','placeholder':'Homepage URL'}))
-    facebook_link   = forms.URLField(required=False, widget=forms.URLInput(
+    facebook_link   = forms.URLField(assume_scheme="https", required=False, widget=forms.URLInput(
                         attrs={'class':'form-control','placeholder':'Facebook URL'}))
-    instagram_link  = forms.URLField(required=False, widget=forms.URLInput(
+    instagram_link  = forms.URLField(assume_scheme="https", required=False, widget=forms.URLInput(
                         attrs={'class':'form-control','placeholder':'Instagram URL'}))
-    linkedin_link   = forms.URLField(required=False, widget=forms.URLInput(
+    linkedin_link   = forms.URLField(assume_scheme="https", required=False, widget=forms.URLInput(
                         attrs={'class':'form-control','placeholder':'LinkedIn URL'}))
 
     class Meta:

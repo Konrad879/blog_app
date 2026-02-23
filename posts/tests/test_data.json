@@ -1,0 +1,10 @@
+{
+    "user": {
+        "username": "test_user",
+        "password": "admin123!"
+    },
+    "post": {
+        "text": "hi, this is a test blog - text",
+        "image_path": "posts/tests/test_data/test_image.jpg"
+    }
+}

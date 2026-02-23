@@ -1,16 +1,20 @@
 import os
 import pytest
-from datetime import datetime
 import json
-from playwright.sync_api import sync_playwright
 from playwright.sync_api import Page
 
 os.environ.setdefault("DJANGO_ALLOW_ASYNC_UNSAFE", "true")
 
+@pytest.fixture(scope="session")
+def test_data_fixture():
+    # read the file once for a whole session
+    with open("posts/tests/test_data.json", "r", encoding="utf-8") as file:
+        return json.load(file)
+
 @pytest.fixture
-def authenticated_page_fixture(page: Page, live_server, django_user_model):
-    test_username = "test_user"
-    test_password = "admin123!"
+def authenticated_page_fixture(page: Page, live_server, django_user_model, test_data_fixture):
+    test_username = test_data_fixture["user"]["username"]
+    test_password = test_data_fixture["user"]["password"]
 
     # test user and database setup
 
