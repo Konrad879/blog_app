@@ -37,9 +37,9 @@
               {% endif %}
 
                 <br/>
-              <small class="text-muted">
+              <small class="text-muted", id="post-creator-like-counter">
                   ({{ blog_post.created_at }}) By <a href="{% url 'profile' blog_post.user.id %}" style="text-decoration: none; color: inherit;">@{{ blog_post.user.username|lower }}</a>
-                  - {{ blog_post.number_of_likes }} - &nbsp;&nbsp;
+                  - <span id="likes">{{ blog_post.number_of_likes }}</span> - &nbsp;&nbsp;
                   {% if user in blog_post.likes.all %}
                     <a href="{% url "blog_post_like" blog_post.id %}">
                         <i class="fa-solid fa-heart" style="color:grey"></i></a>&nbsp;&nbsp;
