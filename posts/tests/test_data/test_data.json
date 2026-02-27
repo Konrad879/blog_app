@@ -6,5 +6,18 @@
     "post": {
         "text": "hi, this is a test blog - text",
         "image_path": "posts/tests/test_data/test_image.jpg"
-    }
+    },
+    "new_user": {
+        "username": "test_user",
+        "profile_image_path": "posts/tests/test_data/test_profile_image.jpg",
+        "first_name": "Test",
+        "last_name": "User",
+        "email_address": "test_user@outlook.com",
+        "password": "SuperSecret123!",
+        "profile_bio": "This is a Test User Account",
+        "homepage_link": "https://www.myblog.com/test_user",
+        "facebook_link": "https://www.facebook.com/test_user",
+        "instagram_link": "https://www.instagram.com/test_user",
+        "linkedin_link": "https://www.linkedin.com/test_user"
+    }   
 }
